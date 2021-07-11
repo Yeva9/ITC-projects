@@ -1,0 +1,29 @@
+Run this 
+        "sudo -u postgres psql" 
+in your terminal to get into postgres
+
+postgres=#
+
+Run "CREATE USER new_username;"
+
+Note: Replace new_username with the user you want to create,
+
+postgres=# CREATE USER new_username;
+CREATE ROLE
+
+Since you want that user to be able to create a DB, you need to alter the role to superuser
+
+postgres=# ALTER USER new_username SUPERUSER CREATEDB;
+ALTER ROLE
+
+To confirm, everything was successful, 
+
+postgres=# \du
+                             List of roles
+ Role name |                   Attributes                   | Member of 
+-----------+------------------------------------------------+-----------
+ new_username     | Superuser, Create DB                           | {}
+ postgres         | Superuser, Create role, Create DB, Replication | {}
+ root             | Superuser, Create role, Create DB              | {}
+ 
+postgres=# 
