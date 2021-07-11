@@ -10,8 +10,8 @@ def index(request):
     #     res += f'<div><p>{it.title}</p><p>{it.content}</p></div><hr>'
     # return HttpResponse(res)
 
-    news = News.objects.order_by("-created_at")
-
+    # news = News.objects.order_by("-created_at")
+    news = News.objects.all()
     context = {
         'news': news,
         'title': 'Norutyunneri cank'
