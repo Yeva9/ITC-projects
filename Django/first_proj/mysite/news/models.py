@@ -13,6 +13,9 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
+    def my_func(self):
+        return "Hello from model."
+
     class Meta:
         ''' Meta description '''
         verbose_name = "Norutyun"  # entavernagira tsarayum(or` add news-y darav add Norutyun...)

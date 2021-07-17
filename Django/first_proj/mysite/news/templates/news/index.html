@@ -33,10 +33,11 @@
             {% for item in news %}
             <div class="card mt-3">
                 <div class="card-header">
+                    {{ item.my_func }}
                     Category: {{ item.category }}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ item.title }}</h5>
+                    <h5 class="card-title {% cycle  'text-success' 'text-danger'%} ">{{ item.title }}</h5>
                     <p class="card-text">{{ item.content }}</p>
                     <a class="btn btn-primary" href="#">More...</a>
                 </div>
