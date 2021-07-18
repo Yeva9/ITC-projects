@@ -5,3 +5,7 @@
     <a class="list-group-item list-group-item-action" href="{% url 'category' item.pk %}">{{ item.title }}</a>
     {% endfor %}
 </div>
+
+<br>
+
+{% show_categories arg2="User" %}
