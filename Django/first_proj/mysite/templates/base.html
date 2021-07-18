@@ -16,10 +16,17 @@
 
 <div class="container mt-3">
     <div class="row">
-        <!-- Sidebar -- List group -->
-        {% block sidebar %} SIDEBAR {% endblock %}
-        <!-- Content -- Card -->
-        {% block content %} CONTENT {% endblock %}
+
+        <div class="col-md-3">
+            <!-- Sidebar -- List group -->
+            {% block sidebar %} SIDEBAR {% endblock %}
+        </div>
+
+        <div class="col-md-9">
+            <!-- Content -- Card -->
+            {% block content %} CONTENT {% endblock %}
+        </div>
+
     </div>
 </div>
 
