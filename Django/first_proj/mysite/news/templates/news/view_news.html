@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ news_item.title }} - {{ block.super }}
+{% endblock %}
+
+<!-- Sidebar -- List group -->
+{% block sidebar %}
+    {% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+<!-- Content -- Card -->
+{% block content %}
+<div class="card mt-3">
+    <div class="card-header">
+        Category: <a href="{{ news_item.category.get_absolute_url }}"> {{ news_item.category }} </a>
+    </div>
+    <div class="card-body">
+        <div class="media">
+            {% if item.photo %}
+            <img alt="" class="mr-3" src="{{ news_item.photo.url }}" width="350">
+            {% else %}
+            <img alt="" class="mr-3" src="https://picsum.photos/id/1050/350/235">
+            {% endif %}
+            <div class="media-body">
+                <h5 class="card-title {% cycle  'text-success' 'text-danger'%} ">{{ news_item.title }}</h5>
+                <p class="card-text">{{ news_item.content|linebreaks }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        {{ news_item.created_at|date:'Y-m-d H:i:s' }}
+    </div>
+</div>
+
+{% endblock %}

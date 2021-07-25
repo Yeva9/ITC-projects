@@ -34,7 +34,7 @@
             <div class="media-body">
                 <h5 class="card-title {% cycle  'text-success' 'text-danger'%} ">{{ item.title }}</h5>
                 <p class="card-text">{{ item.content|linebreaks|truncatewords:50 }}</p>
-                <a class="btn btn-primary" href="#">More...</a>
+                <a class="btn btn-primary" href="{{ item.get_absolute_url }}">More...</a>
             </div>
         </div>
     </div>
