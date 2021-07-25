@@ -21,8 +21,11 @@
         {{ forloop.counter0 }}
         <br>
         {{ item.created_at|timesince }}
-        {% endcomment %}
         Category: <a href="{% url 'category' item.category.pk %}"> {{ item.category }} </a>
+        {% endcomment %}
+
+
+        Category: <a href="{{ item.category.get_absolute_url }}"> {{ item.category }} </a>
     </div>
     <div class="card-body">
         <div class="media">
