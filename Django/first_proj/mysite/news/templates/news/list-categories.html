@@ -1,4 +1,5 @@
 <div class="list-group">
+
     {% comment %}
     {{ arg1 }} {{ arg2 }}
     {% for item in categories %}
@@ -7,8 +8,10 @@
     {% endfor %}
     {% endcomment %}
 
+
     {% for item in categories %}
     <a class="list-group-item list-group-item-action" href="{{ item.get_absolute_url }}">
         {{ item.title }}</a>
     {% endfor %}
+
 </div>
