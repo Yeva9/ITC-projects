@@ -16,12 +16,10 @@ Norutyan avelacum - {{ block.super }}
 
 <form action="{% url 'add_news' %}" method="post">
     {% csrf_token %}
+    {{ my_form.as_p }}
+
 
     {% comment %}
-        {{ my_form.as_p }}
-    {% endcomment %}
-
-
     {{ my_form.non_field.errors }}
     <div class="mb-3">
         <label class="form-label" for="{{ my_form.title.id_for_label }}"> Anun: </label>
@@ -54,6 +52,19 @@ Norutyan avelacum - {{ block.super }}
             {{ my_form.category.errors }}
         </div>
     </div>
+    {% endcomment %}
+
+    {% comment %}
+    {% for field in my_form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        <div class="invalid-feedback">
+            {{ my_form.title.errors }}
+        </div>
+    </div>
+    {% endfor %}
+    {% endcomment %}
 
     <button class="btn btn-primary btn-block" type="submit"> Avelacnel norutyun</button>
 

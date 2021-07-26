@@ -11,11 +11,11 @@ class NewsForm(forms.Form):
     content = forms.CharField(label='Text ', required=False, widget=forms.Textarea(
         attrs={
             'class': 'form-control',
-            'rows' : 5
+            'rows': 5
         }))
     is_published = forms.BooleanField(label='Hraparakvel e? ', initial=True)
     category = forms.ModelChoiceField(empty_label='Yntreq Category',
-        label='Category ', queryset=Category.objects.all(), widget=forms.Select(
-        attrs={
-            'class': 'form-control'
-        }))
+                                      label='Category ', queryset=Category.objects.all(), widget=forms.Select(
+            attrs={
+                'class': 'form-control'
+            }))
