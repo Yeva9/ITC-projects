@@ -31,10 +31,10 @@ def view_news(request, news_id):
 def add_news(request):
     if request.method == 'POST':
         my_form = NewsForm(request.POST)
-        print('----------------------->', request.POST)
+        # print('----------------------->', request.POST)
 
         if my_form.is_valid():
-            print('-----------------------<',my_form.cleaned_data)
+            # print('-----------------------<',my_form.cleaned_data)
             news = News.objects.create(**my_form.cleaned_data)
             return redirect(news)
     else:
