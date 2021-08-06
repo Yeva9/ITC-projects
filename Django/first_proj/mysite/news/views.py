@@ -9,8 +9,15 @@ class HomeNews(ListView):
     model = News
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
-    extra_context = {'title': 'Glkhavor'}
+    # extra_context = {'title': 'Glkhavor'}
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'GLKHAVOR'
+        return context
+
+    def get_queryset(self):
+        return News.objects.filter(is_published=True)
 
 def index(request):
     news = News.objects.all()
