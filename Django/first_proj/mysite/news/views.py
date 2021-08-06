@@ -7,8 +7,9 @@ from .forms import NewsForm
 
 class HomeNews(ListView):
     model = News
-
-
+    template_name = 'news/home_news_list.html'
+    context_object_name = 'news'
+    extra_context = {'title': 'Glkhavor'}
 
 
 def index(request):
