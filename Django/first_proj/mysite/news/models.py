@@ -21,7 +21,9 @@ class News(models.Model):
         return "Hello from model."
 
     class Meta:
-        ''' Meta description '''
+        """
+        Meta description
+        """
         verbose_name = "Norutyun"  # entavernagira tsarayum(or` add news-y darav add Norutyun...)
         verbose_name_plural = "Norutyunner"  # sa el hognakii depqum(inchin -s er avelacnum` sa kdarna)
         # or` delet selected Norutyunner
