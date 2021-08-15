@@ -1,5 +1,4 @@
 <div class="list-group">
-
     {% comment %}
     {{ arg1 }} {{ arg2 }}
     {% for item in categories %}
@@ -11,7 +10,9 @@
 
     {% for item in categories %}
     <a class="list-group-item list-group-item-action" href="{{ item.get_absolute_url }}">
-        {{ item.title }}</a>
+        {{ item.title }} <span class="badge badge-primary badge-pill"
+                               style="background-color: #007bff;color: white;margin-left: 140px;">{{ item.cnt }}</span></a>
+
     {% endfor %}
 
 </div>
