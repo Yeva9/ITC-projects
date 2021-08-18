@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Testing page - {{ block.super }}
+{% endblock %}
+
+<!-- Sidebar -- List group -->
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+<!-- Content -- Card -->
+{% block content %}
+
+{% for name in page_obj.object_list %}
+    {{name}}
+{% endfor %}
+
+{% endblock %}

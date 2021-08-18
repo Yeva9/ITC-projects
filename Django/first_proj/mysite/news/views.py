@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse, reverse_lazy
@@ -6,6 +7,14 @@ from django.urls import reverse, reverse_lazy
 from .models import News, Category
 from .forms import NewsForm
 from .utils import MyMixin
+
+
+def test(request):
+    objects = ['name1', 'name2', 'name3', 'name4', 'name5', 'name5', 'name7', 'name8']
+    paginator = Paginator(objects, 2)
+    page_num = request.GET.get('page', 1)
+    page_objects = paginator.get_page(page_num)
+    return render(request, 'news/test.html', {'page_obj': page_objects})
 
 
 class HomeNews(MyMixin, ListView):
@@ -36,7 +45,7 @@ class NewsByCategory(MyMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] =  self.get_upper(Category.objects.get(pk=self.kwargs['category_id']))
+        context['title'] = self.get_upper(Category.objects.get(pk=self.kwargs['category_id']))
         return context
 
 
