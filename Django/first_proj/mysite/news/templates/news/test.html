@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Testing page - {{ block.super }}
+Hetadardz kap - {{ block.super }}
 {% endblock %}
 
 <!-- Sidebar -- List group -->
@@ -12,8 +12,14 @@ Testing page - {{ block.super }}
 <!-- Content -- Card -->
 {% block content %}
 
-{% for name in page_obj.object_list %}
-    {{name}}
-{% endfor %}
+<!--{% for name in page_obj.object_list %}-->
+<!--    {{name}}-->
+<!--{% endfor %}-->
 
+<h1>Hetadardz kap</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary btn-block" type="submit"> Send </button>
+</form>
 {% endblock %}

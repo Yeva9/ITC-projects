@@ -149,3 +149,10 @@ STATICFILES_DIRS = [
 # INTERNAL_IPS = [
 #     '127.0.0.1'
 # ]
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587 #587-gmail 465 2525
+EMAIL_HOST_USER = 'yeva.hovnanyan.im.itc@gmail.com'
+EMAIL_HOST_PASSWORD = 'instigate123'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

@@ -7,9 +7,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, logout
-
+from django.core.mail import send_mail
 from .models import News, Category
-from .forms import NewsForm, UserRegisterForm, UserLoginForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from .utils import MyMixin
 
 
@@ -52,11 +52,26 @@ def user_logout(request):
 
 
 def test(request):
-    objects = ['name1', 'name2', 'name3', 'name4', 'name5', 'name5', 'name7', 'name8']
-    paginator = Paginator(objects, 2)
-    page_num = request.GET.get('page', 1)
-    page_objects = paginator.get_page(page_num)
-    return render(request, 'news/test.html', {'page_obj': page_objects})
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'yeva.hovnanyan.im.itc@gmail.com', ['yeva@yopmail.com'], fail_silently=False)
+            if mail:
+                messages.success(request, 'Haghordagrutyuny ugharkvec')
+                return redirect('test')
+            else:
+                messages.error(request, 'Haghordagrutyan skhal ka')
+        else:
+            messages.error(request, 'Grancman skhal ka.')
+    else:
+        form = ContactForm()
+    return render(request, 'news/test.html', {"form": form})
+
+    # objects = ['name1', 'name2', 'name3', 'name4', 'name5', 'name5', 'name7', 'name8']
+    # paginator = Paginator(objects, 2)
+    # page_num = request.GET.get('page', 1)
+    # page_objects = paginator.get_page(page_num)
+    # return render(request, 'news/test.html', {'page_obj': page_objects})
 
 
 class HomeNews(MyMixin, ListView):
