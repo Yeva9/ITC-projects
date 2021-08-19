@@ -3,14 +3,21 @@ from .models import News
 import re
 
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+
+
+class UserLoginForm(AuthenticationForm):
+    username = forms.CharField(label='Anun', widget=forms.TextInput(
+                               attrs={'class': 'form-control', 'autofocus': None, 'autocomplete': 'off'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(
+                               attrs={'class': 'form-control'}))
 
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label='Anun', help_text='Anuny piti max 20 tar parunaki.',
                                widget=forms.TextInput(
-                                attrs={'class': 'form-control', 'autofocus': None, 'autocomplete': 'off'}))
+                                   attrs={'class': 'form-control', 'autofocus': None, 'autocomplete': 'off'}))
     password1 = forms.CharField(label='Password',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Password confirmation',
