@@ -9,9 +9,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Glkhavor ej</a></li>
-           {% if request.user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{% url 'add_news' %}">Avelacnel norutyun</a></li>
             {% endif %}
         </ul>
+
+        <span class="navbar-text" style="padding-right: 20px;">
+            <a href=" {% url 'register' %} "> Register </a> | <a href="{% url 'login' %}">Login</a>
+        </span>
     </div>
 </nav>
