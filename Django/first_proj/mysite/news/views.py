@@ -8,13 +8,13 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse, reverse_lazy
 
 from .models import News, Category
-from .forms import NewsForm
+from .forms import NewsForm, UserRegisterForm
 from .utils import MyMixin
 
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Duq hajoghutyamb grancveciq.')
@@ -22,7 +22,7 @@ def register(request):
         else:
             messages.error(request, 'Grancman skhal ka.')
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
     context = {
         'form': form,
     }
