@@ -51,27 +51,28 @@ def user_logout(request):
     return redirect('login')
 
 
-def test(request):
+def email_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'yeva.hovnanyan.im.itc@gmail.com', ['yeva@yopmail.com'], fail_silently=False)
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],
+                             'yeva.hovnanyan.im.itc@gmail.com', ['yeva@yopmail.com'], fail_silently=True)
             if mail:
                 messages.success(request, 'Haghordagrutyuny ugharkvec')
-                return redirect('test')
+                return redirect('email')
             else:
-                messages.error(request, 'Haghordagrutyan skhal ka')
+                messages.error(request, 'Haghordagrutyan ugharkvelu skhal ka')
         else:
             messages.error(request, 'Grancman skhal ka.')
     else:
         form = ContactForm()
-    return render(request, 'news/test.html', {"form": form})
+    return render(request, 'news/email.html', {"form": form})
 
     # objects = ['name1', 'name2', 'name3', 'name4', 'name5', 'name5', 'name7', 'name8']
     # paginator = Paginator(objects, 2)
     # page_num = request.GET.get('page', 1)
     # page_objects = paginator.get_page(page_num)
-    # return render(request, 'news/test.html', {'page_obj': page_objects})
+    # return render(request, 'news/email.html', {'page_obj': page_objects})
 
 
 class HomeNews(MyMixin, ListView):
