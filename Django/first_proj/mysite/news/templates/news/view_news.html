@@ -19,7 +19,7 @@
         {% if item.photo %}
         <img alt="" class="float-left mr-3" src="{{ news_item.photo.url }}" width="350">
         {% else %}
-        <img alt="" class="float-left mr-3" src="https://picsum.photos/id/1050/350/235">
+        <img alt="" class="float-left mr-3" src="https://picsum.photos/id/1014/350/235">
         {% endif %}
         <h5 class="card-title {% cycle  'text-success' 'text-danger'%} ">{{ news_item.title }}</h5>
         <p class="card-text">{{ news_item.content|linebreaks }}</p>
