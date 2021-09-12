@@ -1,5 +1,5 @@
 Run this 
-        "sudo -u postgres psql" 
+        "$ sudo -u postgres psql" 
 in your terminal to get into postgres
 
 postgres=#
@@ -27,3 +27,10 @@ postgres=# \du
  root             | Superuser, Create role, Create DB              | {}
  
 postgres=# 
+
+
+Check status postgres
+        "$ systemctl status postgresql"
+
+Start postgres
+        "$ systemctl start postgresql"
