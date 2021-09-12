@@ -1,0 +1,136 @@
+{% extends "layouts/base.html" %} {% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div class="page-header">
+                    <h4 class="page-title">Dashboard</h4>
+                    <ul class="breadcrumbs">
+                        <li class="nav-home">
+                            <a href="/">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/">Dashboard</a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/view_more">View more</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-inner mt--5">
+
+
+ {% comment %} ADMIN {% endcomment %}
+        {% if request.user.role.name == 'Admin'  %}
+            <!--   Event Log     -->
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">Event Log</h4>
+                            <div class="card-tools">
+
+                                <div style="display: flex;">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <button class="btn btn-light" title="Download all data">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class=" table table-striped table-hover"
+                                   id="multi-filter-select1">
+                                <thead>
+                                <tr>
+                                            <th><b> ID </b><a class="btn"> </a></th>
+                                            <th><b> User </b><a class="btn"> </a></th>
+                                            <th><b> Event </b><a class="btn"> </a></th>
+                                            <th><b> Event Description </b><a class="btn"> </a></th>
+                                            <th><b> Date/Time </b><a class="btn"> </a></th>
+                                </tr>
+                                </thead>
+
+                                <tbody id="tasks_body">
+                                            {% for item in audit reversed %}
+                                            <tr>
+                                                <td> {{ item.id }} </td>
+                                                <td> {{ item.user }} </td>
+                                                <td> {{ item.event_title}} </td>
+                                                <td> {{ item.event_description}} </td>
+                                                <td> {{ item.event_date|date:"Y-m-d   H:i" }} </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+
+<script>
+    $(document).ready(function () {
+        var table = $('#multi-filter-select1').DataTable({
+            "order": [[ 0 , "desc" ]],
+           "pageLength": 10,
+            info: false,
+
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                aa = $(this).val()
+                            ).trim();
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+
+        $("#hide").click(function (e) {
+            selected_value = e.target.value;
+            table.draw();
+        });
+    });
+
+
+</script>
+{% endblock javascripts %}

@@ -1,0 +1,125 @@
+.active_block {
+    display: flex;
+    white-space: nowrap;
+    margin-left: 20%;
+    margin-top: 0%;
+}
+
+.card-title {
+    margin: 0%;
+    color: grey;
+    margin-right: 75%;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: -5%;
+    margin-left: 6%;
+}
+
+.active_block_2 {
+    margin-left: 20%;
+    color: green;
+}
+
+.card-body {
+    margin: -2%
+}
+
+.card.full-height {
+    height: 100%;
+}
+
+.img-2 {
+    position: absolute;
+    left: 3%;
+    top: 25%;
+}
+
+.sidebar.sidebar-style-2 .nav.nav-primary > .nav-item.active > a {
+    background: #4FC3F7 !important;
+    box-shadow: 4px 4px 10px 0 rgb(0 0 0 / 10%), 4px 4px 15px -5px rgb(21 114 232 / 40%) !important;
+}
+
+.logo-header .logo {
+    display: contents;
+}
+
+.TAS {
+    margin-left: 15%;
+}
+
+#event-log {
+    margin-left: 0% !important;
+    margin-top: -5%;
+}
+
+#Upload {
+   margin-left: 0% !important;
+   margin-top: -5%;
+}
+
+#button_view {
+    background: #4FC3F7 !important;
+    cursor: pointer !important;
+    border: none !important;
+}
+
+#button_view:hover {
+    background-color: lightblue !important;
+}
+
+select.form-control:invalid {
+    color: gray;
+}
+
+#cancel_button_block {
+    margin-left: 1%;
+}
+
+#upload_button, #cancel_button {
+    background: gray;
+    border-radius: 5%;
+    border: 1px solid gray;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 100%;
+    margin: 4px 2px;
+    cursor: not-allowed;
+}
+
+#cancel_button {
+    background: white !important;
+    color: gray;
+}
+
+.upload_multiple_files {
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.choose_files::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.choose_files {
+  border: 1px solid #4FC3F7;
+  border-radius: 1%;
+  color: #4FC3F7;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.choose_files:hover {
+    background-color: #4FC3F7;
+    color: white;
+}
+

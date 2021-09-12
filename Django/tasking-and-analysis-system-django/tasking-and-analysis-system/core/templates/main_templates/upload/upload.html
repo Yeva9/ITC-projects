@@ -1,0 +1,154 @@
+{% extends "layouts/base.html" %} {% block title %} Dashboard {% endblock %}
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/css/upload.css">
+{% endblock stylesheets %} {% block content %}
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div class="page-header">
+                        <h4 class="page-title">Upload</h4>
+                    <ul class="breadcrumbs">
+                        <li class="nav-home">
+                            <a href="/">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                                <a href="/upload/">Upload</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="page-inner mt--5" >
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                        <div class="card-header" style="padding-bottom: 3%; padding-top: 2% !important;">
+                            {% for message in messages %}
+                                <div id="message_alert" class="alert {{ message.tags }} alert-dismissible" role="alert">
+                                    <button type="button" id="close_message" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{ message | safe }}
+                                </div>
+                            {% endfor %}
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title" id="Upload" style="margin-top: 0%;">Upload</h4>
+                        </div>
+                    </div>
+                        <form method="post" enctype="multipart/form-data" class="card-body" style="margin-top: -0.13%; margin-left: -0.122%;">
+                            {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive table-hover table-sales" style="display: flex; margin-bottom: 3%; padding-bottom: 3%;">
+
+                                    <div class="upload_dropdown_1" style="width: 30%;">
+                                        <h5 style="margin-bottom: 2%;">File type</h5>
+                                        <div id="selector_upload_1">
+                                            <div id="select_for_upload_1" >
+                                                <select required class="form-control" id="sel_1" style="margin-top: 15px; padding: 3% 0%; border-color: #4FC3F7;">
+                                                    <option value="" disabled selected>File type</option>
+                                                    <option>XLSX</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="upload_dropdown_2" id="upload_dropdown_2_id" style="width: 30%; margin-left: 5%; display: none">
+                                        <h5 style="margin-bottom: 2%;">Location</h5>
+                                        <div id="selector_upload_2" >
+                                            <div id="select_for_upload_2">
+                                                <select required class="form-control" id="sel_2" style="margin-top: 15px; padding: 3% 0%; border-color: #4FC3F7;">
+                                                    <option value="" disabled selected>Set a location</option>
+                                                    <option>Yerevan</option>
+                                                    <option>Ararat</option>
+                                                    <option>Kotayk</option>
+                                                    <option>Armavir</option>
+                                                    <option>Gegharquniq</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="upload_multiple_files">
+                                    <input type="file" id="choose_for_upload" class="choose_files" multiple name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+<!--                                    {{ form }}-->
+                                </div>
+
+                                <div class="upload_footer" style="display: flex; margin-bottom: 2%;  border-top: 1px solid #ebecec !important; padding-top: 3% ">
+                                    <div id="upload_button_block">
+                                        <button id="upload_button"><img src="../../static/assets/img/upload.svg" style="margin-right: 8px;">Upload</button>
+                                    </div>
+                                    <div id="cancel_button_block">
+                                        <button type="reset" id="cancel_button"><i class="fas fa-times" style="margin-right: 10px;"></i><b> Cancel </b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+<script src="/static/assets/js/setting-demo.js"></script>
+<script src="/static/assets/js/demo.js"></script>
+
+<script>
+    const select = document.querySelector('#sel_1')
+    select.addEventListener('change', (event) => {
+        document.querySelector('#upload_dropdown_2_id').style.display = 'block';
+    })
+    is_select_sel_2 = false;
+    is_select_choose_file = false;
+
+    const select_2 = document.querySelector('#sel_2')
+    select_2.addEventListener('change', (event) => {
+        is_select_sel_2 = true;
+        if (is_select_sel_2 && is_select_choose_file) {
+            document.querySelector('#upload_button').style.background = '#4FC3F7';
+            document.querySelector('#upload_button').style.border = '1px solid #4FC3F7';
+            document.querySelector('#upload_button').style.cursor = 'pointer';
+            document.querySelector('#cancel_button').style.cursor = 'pointer';
+            document.querySelector('#cancel_button').style.pointerEvents = 'auto';
+            document.querySelector('#upload_button').style.pointerEvents = 'auto';
+        }
+    })
+
+    const choose_files = document.querySelector('#choose_for_upload')
+    choose_files.addEventListener('change', (event) => {
+        is_select_choose_file = true;
+        if (is_select_sel_2 && is_select_choose_file) {
+            document.querySelector('#upload_button').style.background = '#4FC3F7';
+            document.querySelector('#upload_button').style.border = '1px solid #4FC3F7';
+            document.querySelector('#upload_button').style.cursor = 'pointer';
+            document.querySelector('#cancel_button').style.cursor = 'pointer';
+            document.querySelector('#cancel_button').style.pointerEvents = 'auto';
+            document.querySelector('#upload_button').style.pointerEvents = 'auto';
+        }
+    })
+
+</script>
+
+{% endblock javascripts %}

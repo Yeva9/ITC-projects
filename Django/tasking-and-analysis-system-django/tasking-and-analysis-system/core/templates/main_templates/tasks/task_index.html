@@ -1,0 +1,209 @@
+{% extends "layouts/base.html" %} {% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block content %}
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div class="page-header">
+                    <h4 class="page-title">Tasking system</h4>
+                    <ul class="breadcrumbs">
+                        <li class="nav-home">
+                            <a href="/">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href='{% url "tasks" %}'>Tasking system</a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href='{% url "tasks" %}'>Tasks</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        {% for message in messages %}
+                            <div id="message_alert" class="alert {{ message.tags }} alert-dismissible" role="alert">
+                                <button type="button" id="close_message" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                {{ message | safe }}
+                            </div>
+                        {% endfor %}
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">Tasks</h4>
+                            <div class="card-tools" style="display: flex; flex-direction: row;">
+                                {% if request.user.role.name == 'Task creator' %}
+                                <a href='{% url "task_create" %}' class="btn btn-secondary"
+                                    style="display: flex; justify-content: center; align-items: center;">
+                                    <i class="fas fa-plus" style="margin: 0 10%;"></i>
+                                    <b>Create a task </b>
+                                </a>
+                                {% elif request.user.role.name == 'Task distributor' %}
+                                <select class="form-select pull-right custom-task-filter"
+                                    aria-label="Default select example" id="hide">
+                                    <option value="all"> All </option>
+                                    <option value="task"> Task </option>
+                                    <option value="subtask"> Subtask </option>
+                                </select>
+                                {% endif %}
+                                <form method="POST" style="font-size: 200%; margin: 0 40px 0 10px;">
+                                    {% csrf_token %}
+                                    <button type="submit" title="Download" style="background: white; border: 0; cursor: pointer;">
+                                        <i class="fas fa-file-download" title="Download  Task List"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row ">
+                            <div class="col-md-12 ">
+                                <div class="table-responsive table-hover table-sales ">
+                                    <table id="multi-filter-select" class="display table table-striped table-hover" style="color: black;">
+                                        <thead>
+                                            <tr>
+                                                <th>PID</th>
+                                                <th>ID</th>
+                                                <th>Farm</th>
+                                                <th>Assigned to</th>
+                                                <th>Current Milkability</th>
+                                                <th>Task title</th>
+                                                <th>Date created</th>
+                                                <th>Due date</th>
+                                                <th>Progress</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot style="display: table-header-group;">
+                                            <tr>
+                                                <th>PID</th>
+                                                <th>ID</th>
+                                                <th>Farm</th>
+                                                <th>Assigned to</th>
+                                                <th>Current Milkability</th>
+                                                <th>Task title</th>
+                                                <th>Date created</th>
+                                                <th>Due date</th>
+                                                <th>Progress</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody id="tasks_body">
+                                            {% for task in tasks %}
+                                            <tr {% if task.pid == task.id %} class="is_parent_task" {% elif request.user.role.name == 'Task distributor' %} class="is_subtask" {% endif %}>
+                                                <td>{{ task.pid }}</td>
+                                                <td>{{ task.id }}</td>
+                                                <td>{{ task.substation }}</td>
+                                                <td>{{ task.assigned_to.name }} {{ task.assigned_to.last_name }}</td>
+                                                <td>{{ task.current_readability }}</td>
+                                                <td>{{ task.task_title }}</td>
+                                                <td>{{ task.created_date }}</td>
+                                                <td>{{ task.due_date }}</td>
+                                                <td>
+                                                    {{ task.progress.name }}
+                                                </td>
+                                                <td>
+                                                    <a href='{% url "task_edit" task_id=task.id %}'
+                                                        style="margin-right: 20px; color: black;"> <i class="fas fa-pen "></i> </a>
+                                                    {% if task.pid == task.id and task.assigned_to == request.user %}
+                                                    <a href='{%url "subtask_create" parent_id=task.id %}' style="color: black;">
+                                                        <i class="fas fa-plus-circle "></i></a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+
+
+
+
+
+
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+<!-- <script src="/static/assets/js/setting-demo2.js"></script> -->
+<script>
+    $(document).ready(function () {
+        var table = $('#multi-filter-select').DataTable({
+            "pageLength": 10,
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select style="height: 80%; width: 100%;" ><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                aa = $(this).val()
+                            ).trim();
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+
+        $("#hide").click(function (e) {
+            selected_value = e.target.value;
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    if (selected_value === 'all') {
+                        $.fn.dataTable.ext.search.pop();
+                        table.draw();
+                    } else if (selected_value === 'task') {
+                        console.log(1)
+                        return $(table.row(dataIndex).node()).attr('class').trim().includes('is_parent_task');
+                    } else if (selected_value === 'subtask') {
+                        console.log($(table.row(dataIndex).node()).attr('class').trim())
+                        return $(table.row(dataIndex).node()).attr('class').trim().includes('is_subtask');
+                    }
+                }
+            );
+            table.draw();
+        });
+    });
+
+    
+</script>
+
+{% endblock javascripts %}

@@ -1,0 +1,69 @@
+
+Users roles and permissions 
+
+1. System Admin
+    Permissions : 
+    Model : User
+    - Add new user
+    - Edit user information
+    - Deactivate user
+    - Delete user
+    Model: Audit trail
+    - Can view only user, tasks related audit trail 
+    Dashboard
+     - Can view dashboard only for system admin (active/total users, users activity and audit trail)
+
+2. Analyst (Reporter and Uploader)
+    Permissins:
+    Model : Upload
+    - Can view upload page
+    - Can upload files into the system
+    Model : Report
+    - Can view reports pages
+    - Can generate reports
+    - Can export xlsx/pdf files
+    Dashboard
+    - Can view analyst specific dashboard (last uploads, last exports)
+
+    No access to admin panel
+
+3. Task Creator
+    Permissions : 
+    Model : Task
+    - Can view Tasks tab (menu item)
+    - Can view tasks list (both tasks and subtasks) ??
+    - Can create new task (no subtasks)
+    - Can edit own tasks (no subtasks) ??
+    - Can assign task to the user with "task distributor" role
+    - Can view 
+    Model : User
+    - only users with role "tasks distributor"
+    Dashboard
+    - Can view "task creator" related dashboard(tasks count according their  statuses)
+
+   No access to admin panel
+
+
+4. Task Distributor
+    Permissions : 
+    Model : Task
+    - Can view tasks tab (menu item)
+    - Can view tasks list (only assigned to him)
+    - Can add new subtask 
+    - Can edit own subtask
+    - Can assign subtask to user with role "task executor"
+    Model : User
+    - only users with role "tasks executor"
+    Dashboard
+    - Can view statuses on tasks ??
+    No access to admin panel
+
+
+5. Task Executor
+    Permissions :
+    Model : Task
+    - can view only assigned subtasks
+    - can edit assigned tasks (only status field)
+    Dashboard
+    - can view task counts according to statuses 
+     No access to admin panel
